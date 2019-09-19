@@ -88,7 +88,8 @@
   },
   "porxy": "http://localhost:5000",
   "devDependencies": {
-    "babel-plugin-import": "^1.12.1"
+    "babel-plugin-import": "^1.12.1",
+    "source-map": "^0.7.3"
   },
   "jest": {
     "roots": [

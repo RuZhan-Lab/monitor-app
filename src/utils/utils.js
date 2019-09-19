@@ -15,13 +15,13 @@ export default {
         return date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()+' '+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();
     },
     pagination(res,callback){
-        
         return {
             onChange:(current)=>{
+                console.log('current', current);
                 callback(current)
             },
-            current:res.data.page,
-            pageSize:res.data.pageSize,
+            current:parseInt(res.data.page),
+            pageSize:parseInt(res.data.pageSize),
             total: res.data.total,
             showTotal:()=>{
                 return `共${res.data.total}条`

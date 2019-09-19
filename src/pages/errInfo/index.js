@@ -7,7 +7,7 @@
  */
 import React, {Component} from 'react';
 import axios from '../../axios';
-
+import Utils from '../../utils/utils'
 import {Table, Button} from 'antd';
 
 class ErrInfo extends Component {
@@ -16,14 +16,42 @@ class ErrInfo extends Component {
       list: []
     }
 
+    params = {
+      page:1
+  }
+
     componentDidMount () {
         this.getDataHandler();
     }
 
-
     getDataHandler = () => { 
-      axios.requestList(this, '/getData', {page: 1, pageSize: 20})
-    }
+      let _this = this;
+      axios.ajax({
+          url:'/getData',
+          data:{
+              params:{
+                  page:this.params.page,
+                  pageSize: 20
+              }
+          }
+      }).then((res)=>{
+          if(res.code == 0){
+              res.data.dataList.forEach((item, index) => {
+                  item.key = index;
+              })
+              this.setState({
+                  list:res.data.dataList,
+                  selectedRowKeys:[],
+                  selectedRows:null,
+                  pagination: Utils.pagination(res,(current)=>{
+                      _this.params.page = current;
+                      this.getDataHandler();
+                  })
+              })
+          }
+      })
+  }
+    
 
     deleteItemHandler = (id) => {
       axios.ajax({
@@ -74,7 +102,7 @@ class ErrInfo extends Component {
 
         return (
             <div>
-                <Table dataSource={this.state.list} columns={columns}/>
+                <Table dataSource={this.state.list} columns={columns} pagination={this.state.pagination}/>
             </div>
         );
     }

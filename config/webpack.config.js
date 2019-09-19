@@ -149,7 +149,8 @@ module.exports = function(webpackEnv) {
     mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
     // Stop compilation early in production
     bail: isEnvProduction,
-    devtool: isEnvProduction
+    devtool: 
+    isEnvProduction
       ? shouldUseSourceMap
         ? 'source-map'
         : false
