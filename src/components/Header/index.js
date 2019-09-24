@@ -6,16 +6,19 @@
  * @Email: zhan.ru@meeruu.com
  */
 import React from 'react'
-import {withRouter} from 'react-router-dom'
+import {withRouter, NavLink} from 'react-router-dom'
 import { Breadcrumb, Row,Col } from "antd"
 import './index.less'
 import Util from '../../utils/utils'
 import axios from '../../axios'
+import createBreadCrumb from '../../utils/createBreadCrumb'
+import menuList from '../../config/menuConfig';
+
  class Header extends React.Component{
     state={}
 
     componentDidMount(){
-        
+
         this.setState({
             userName:'meeruu'
         })
@@ -45,6 +48,9 @@ import axios from '../../axios'
     render(){
 
         const menuType = this.props.menuType;
+        const pathname = this.props.location.pathname;
+
+        const breadcrumbParams = createBreadCrumb(pathname)(menuList);
         return (
             <div className="header">
                 <Row className="header-top">
@@ -63,7 +69,7 @@ import axios from '../../axios'
                     menuType?'':
                         <Row className="breadcrumb">
                             <Col span={4} className="breadcrumb-title">
-
+                                <NavLink to={breadcrumbParams.key} >{breadcrumbParams.title}</NavLink>
                             </Col>
                             <Col span={20} className="weather">
                                 <span className="date">{this.state.sysTime}</span>
