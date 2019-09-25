@@ -8,18 +8,23 @@
 // import menuList from '../config/menuConfig';
 
 function createBreadCrumb(currentRoute) {
-  let result = null;
+  let result = [];
   return function inner(menuList) {
     menuList.forEach(menu => {
-      if (menu.key === currentRoute) {
-        return (result = menu);
+      if (~currentRoute.indexOf(menu.key)) {
+
+        result.push(menu);
       }
       if (menu.children) {
-        return inner(menu.children);
+         inner(menu.children);
       }
     });
     return result;
   };
 }
+
+
+
+
 
 export default createBreadCrumb;

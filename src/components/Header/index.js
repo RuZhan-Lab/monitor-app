@@ -6,8 +6,8 @@
  * @Email: zhan.ru@meeruu.com
  */
 import React from 'react'
-import {withRouter, NavLink} from 'react-router-dom'
-import { Breadcrumb, Row,Col } from "antd"
+import {withRouter} from 'react-router-dom'
+import { Row,Col } from "antd"
 import './index.less'
 import Util from '../../utils/utils'
 import axios from '../../axios'
@@ -50,7 +50,7 @@ import menuList from '../../config/menuConfig';
         const menuType = this.props.menuType;
         const pathname = this.props.location.pathname;
 
-        const breadcrumbParams = createBreadCrumb(pathname)(menuList);
+        const breadcrumbList = createBreadCrumb(pathname)(menuList);
         return (
             <div className="header">
                 <Row className="header-top">
@@ -69,7 +69,11 @@ import menuList from '../../config/menuConfig';
                     menuType?'':
                         <Row className="breadcrumb">
                             <Col span={4} className="breadcrumb-title">
-                                <NavLink to={breadcrumbParams.key} >{breadcrumbParams.title}</NavLink>
+                            {
+                                breadcrumbList.map((item, index) => {
+                                     return <span key={item.key} to={item.key} >{(index ? '/' : '') + item.title}</span>
+                                })
+                            }   
                             </Col>
                             <Col span={20} className="weather">
                                 <span className="date">{this.state.sysTime}</span>

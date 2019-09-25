@@ -17,7 +17,7 @@ export default {
     pagination(res,callback){
         return {
             onChange:(current)=>{
-                console.log('current', current);
+    
                 callback(current)
             },
             current:parseInt(res.data.page),

@@ -13,17 +13,24 @@ const menuList = [
     {
         title: '数据概览',
         key: '/home',
-        component: Home
+        component: Home 
     },
     {
         title: '错误监控',
         key: '/errInfo',
-        component: ErrInfo
+        children: [
+            {
+                title: '监控信息',
+                key: '/errInfo/currentInfo',
+                component: ErrInfo 
+            }
+        ]
+        
     },
     {
         title: '接口调试',
         key: '/test',
-        component: Test
+        component: Test 
     }
 ];
 export default menuList;
